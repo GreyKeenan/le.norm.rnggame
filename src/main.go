@@ -48,7 +48,7 @@ func main() {
 	toddler.Train(&counts, &totals, rzer, 100000)
 	toddler.Solidify(&counts, &totals, &averages)
 
-	var score float64 = toddler.Perform(&averages, rzer, 100)
+	var score float64 = toddler.Perform(&averages, rzer, 10000)
 
 	fmt.Printf("\nseed: %d\n\n", seed)
 	fmt.Println(counts)
