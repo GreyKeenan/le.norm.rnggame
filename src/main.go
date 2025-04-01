@@ -45,10 +45,12 @@ func main() {
 	var totals [toddler.Possibilities]int
 	var averages [toddler.Possibilities]float64
 
-	toddler.Train(&counts, &totals, rzer, 100000)
+	const rounds int = 100000
+
+	toddler.Train(&counts, &totals, rzer, rounds)
 	toddler.Solidify(&counts, &totals, &averages)
 
-	var score float64 = toddler.Perform(&averages, rzer, 10000)
+	var score float64 = toddler.Perform(&averages, rzer, rounds)
 
 	fmt.Printf("\nseed: %d\n\n", seed)
 	fmt.Println(counts)
@@ -56,6 +58,8 @@ func main() {
 	fmt.Println(averages)
 	fmt.Println()
 	fmt.Printf("Score: %v\n", score)
+	fmt.Println()
+	fmt.Printf("Control: %v\n", toddler.Control(rzer, rounds))
 	fmt.Println()
 
 	return
