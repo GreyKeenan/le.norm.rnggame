@@ -48,3 +48,17 @@ func main() {
 
 	fmt.Printf("won %v on average\n", avg_winnings)
 }
+
+/*
+Initially, I thought the ideal cap would be `9.5`.
+At that point, 50% of the next values are wins.
+However, that means you're getting `9.5+`, 50% of the time,
+which is only like `4.25+` on average.
+
+And, yes, that's what I observe with a cap of `9.5`.
+Testing different values, around 8 is optimal.
+
+With 8.5, you're getting `8.5+`, 80-something percent of the time.
+With 7.5, you're getting `7.5+`, 90-something percent of the time.
+So, it makes sense that its somewhere between there.
+*/
