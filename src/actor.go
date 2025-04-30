@@ -8,15 +8,12 @@ import (
 
 type Actor interface {
 	Act(state float64) (error, bool)
-	Fin(total float64)
 }
 
 // ==========
 
 type cli_actor struct { rdr *bufio.Reader }
-
 func Cli_actor() Actor { return cli_actor{bufio.NewReader(os.Stdin)} }
-
 func (self cli_actor) Act(state float64) (error, bool) {
 
 	fmt.Printf("you have %v. Reroll? (y)\n", state)
@@ -31,6 +28,9 @@ func (self cli_actor) Act(state float64) (error, bool) {
 
 	return nil, false
 }
-func (self cli_actor) Fin(state float64) {
-	fmt.Printf("you won %v!\n", state)
-}
+
+// ==========
+
+type static_actor struct { v float64 }
+func Static_actor(v float64) Actor { return static_actor{v} }
+func (self static_actor) Act(state float64) (error, bool) { return nil, (state >= self.v) }

@@ -25,8 +25,23 @@ func play(rng *rand.Rand, actor Actor) (error, float64) {
 		}
 	}
 
-	actor.Fin(state)
+	return nil, state;
+}
 
-	return nil, 0;
+func play_average(rng *rand.Rand, actor Actor, iterations int) (error, float64) {
+	
+	var e error
+	var total float64
+	var thisone float64
+
+	var i int
+	for i = 0; i < iterations; i += 1 {
+		e, thisone = play(rng, actor)
+		if (e != nil) { return e, 0 }
+
+		total += thisone
+	}
+
+	return nil, total / float64(iterations)
 }
 
