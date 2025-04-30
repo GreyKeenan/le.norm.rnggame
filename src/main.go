@@ -12,15 +12,25 @@ func main() {
 
 	var e error
 
-	var seed int64
+	var cap_at float64
 	if len(os.Args) > 1 {
-		seed, e = strconv.ParseInt(os.Args[1], 10, 63)
+		cap_at, e = strconv.ParseFloat(os.Args[1], 64)
+		if (e != nil) { panic(e) }
+	} else {
+		cap_at = 8
+	}
+	fmt.Printf("cap at: %v\n", cap_at)
+
+	var seed int64
+	if len(os.Args) > 2 {
+		seed, e = strconv.ParseInt(os.Args[2], 10, 63)
 		if (e != nil) {
 			seed = time.Now().Unix()
 		}
 	} else {
 		seed = time.Now().Unix()
 	}
+	fmt.Printf("seed: %v\n", seed);
 	var rng *rand.Rand = rand.New(rand.NewSource(seed))
 
 	/*
@@ -32,7 +42,7 @@ func main() {
 	*/
 
 	var avg_winnings float64
-	e, avg_winnings = play_average(rng, Static_actor(8), 10000)
+	e, avg_winnings = play_average(rng, Static_actor(cap_at), 10000)
 
 	if (e != nil) { panic(e) }
 
